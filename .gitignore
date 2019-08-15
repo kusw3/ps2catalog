@@ -1,0 +1,4 @@
+venv
+config*.ini
+.vscode
+catalogs
