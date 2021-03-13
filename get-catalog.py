@@ -8,7 +8,7 @@ import argparse
 
 import requests
 import codecs
-from configparser import SafeConfigParser
+from configparser import ConfigParser
 from distutils.version import LooseVersion
 
 # Hackety Hack. Puc mantenir el prestapyt com a submodul i buscar la lib dins d'aquest.
@@ -133,7 +133,7 @@ if __name__ == '__main__':
     except IndexError:
         basedir = '.'
 
-    config = SafeConfigParser()
+    config = ConfigParser()
     config.read(basedir+'/config.ini')
 
     file = codecs.open("{0}/{1}-{2}.tsv".format(config.get('report','folder_name'), config.get('report','file_name'), config.get('report','lang')), "w", "utf-8-sig")
