@@ -5,6 +5,7 @@ import os
 import sys
 import json
 import argparse
+import re
 
 import requests
 import codecs
@@ -47,12 +48,12 @@ def get_fb_catalog(ps, f, c):
 
 
         # description - for desc prod['product']['description_short']['language']:  desc['value'] if lang == 'ES' else next
-        if isinstance(prod['product']['description']['language'], list):
-            for name in prod['product']['description']['language']:
+        if isinstance(prod['product']['description_short']['language'], list):
+            for name in prod['product']['description_short']['language']:
                 if name['attrs']['id'] == lang_id:
-                    description = name['value'].replace('<p>','').replace('</p>','')
+                    description = re.sub('<[^>]+?>', '', name['value'])
         else:
-            description = prod['product']['description']['language']['value'].replace('<p>','').replace('</p>','')
+            description = re.sub('<[^>]+?>', '', prod['product']['description_short']['language']['value'])
 
         # link -
         if isinstance(prod['product']['link_rewrite']['language'], list):
